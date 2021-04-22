@@ -9,7 +9,7 @@ import base64
 
 
 def formatCerts(user, password, url):
-    """ function to retrieve the certifactes from the url using
+    """ function to retrieve the certificates from the url using
     the username and password provided to the function.
     Then format the retrieved certificates into a .txt file.
 
@@ -31,19 +31,19 @@ def formatCerts(user, password, url):
     with urllibr.urlopen(r) as response:
         certs = response.read()
 
-    # cleans the response data
+    # cleans the response data by removing excess string formatting
     certs = certs.decode('utf-8')[18:].split(',')
     certs[0] = certs[0][:-1]
     certs[1] = certs[1][1:-1]
     certs[2] = certs[2][1:-4]
 
-    # set variable to control the format of the output
+    # set the variables for loopoing and writing to file
     outfile = open('nelson_scott.crt', 'w')
     cnt = 0
     loopcnt = 0
     newline = '\n'
 
-    # loop through all recieved certifcates
+    # loop through all recieved certificates
     for cert in certs:
         # append start of cert
         outfile.write('----Begin Certificate----\n')
@@ -83,7 +83,7 @@ def formatCerts(user, password, url):
     outfile.close()
 
 
-# establish the user name and password to acess data
+# establish the user name and password to access data
 user = 'testuser'
 password = 'T3st9paS$w0rd!'
 
