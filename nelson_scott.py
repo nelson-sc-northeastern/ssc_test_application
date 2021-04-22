@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[127]:
+# In[165]:
 
 
 import urllib.request as urllibr
@@ -40,17 +40,19 @@ def formatCerts(user, password, url):
     # set variable to control the format of the output
     outfile = open('nelson_scott.crt', 'w')
     cnt = 0
+    loopcnt = 0
+    newline = '\n'
 
     # loop through all recieved certifcates
     for cert in certs:
         # append start of cert
-        outfile.write('----Begin Certificate---- \n')
+        outfile.write('----Begin Certificate----\n')
         # loop through cert ensuring line does exceed 64 chars
         while len(cert) > 0:
             if(len(cert) == 1):
                 # outfile write character of the cert and new line
                 outfile.write(cert[0])
-                outfile.write(' \n')
+                outfile.write('\n')
                 cert = cert[1:]
 
                 # reset counter
@@ -72,9 +74,11 @@ def formatCerts(user, password, url):
                 cnt = 0
 
         # append end of cert to outfile
-        outfile.write('----End Certificate----')
-        outfile.write(' \n')
+        outfile.write('----End Certificate----' + newline)
 
+    # truncates last line to remove whitespace line
+    # spacing matches os.linesep
+    outfile.truncate(outfile.tell()-1)
     # close the outfile
     outfile.close()
 
